@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Melia | Miel 100% natural de origen colombiano</title>
+  <meta name="description" content="Melia: miel pura de eucalipto, pino, frailejón y multifloral. Sabor 100% natural, cosechado con respeto por las abejas y envasado en origen.">
+  <meta name="theme-color" content="#f5f1e7">
+  <meta property="og:title" content="Melia | Miel 100% natural">
+  <meta property="og:description" content="Siente el dulce de la realeza. Miel pura de la flora colombiana.">
+  <meta property="og:image" content="assests/imagenes/hero_bg.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assests/imagenes/favicon.png">
+
+  <!-- Marca la página como "con JS" antes de pintar, para que las animaciones de entrada no parpadeen -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Montserrat:wght@400;500;600;700&display=swap">
+  <link rel="preload" as="image" href="assests/imagenes/hero_bg.png" fetchpriority="high">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <!-- Sprite de iconos (trazo 1.5, mismo estilo en toda la página) -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9z"/><path d="M9 10.5V6.5a3 3 0 0 1 6 0v4"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+      <!-- Iconos de confianza -->
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5.5 19.5C4.6 11.5 10 4.6 20 4c.4 9.6-5.7 15.6-14.5 15.5z"/><path d="M5.5 19.5 14.5 10.5"/><path d="M10 15h4.2M11.2 9.8v3.9"/></symbol>
+      <symbol id="i-bee" viewBox="0 0 24 24"><circle cx="12" cy="6.6" r="2"/><path d="M11 4.8 9.8 3M13 4.8l1.2-1.8"/><path d="M12 9c2.7 0 4.4 2.4 4.4 5.5S14.4 21 12 21s-4.4-3.4-4.4-6.5S9.3 9 12 9z"/><path d="M7.8 13.2h8.4M8.1 16.6h7.8"/><path d="M10.4 10.4C8.2 7.3 4.3 7.4 3.7 9.6s2.7 3.5 5.6 2.5M13.6 10.4c2.2-3.1 6.1-3 6.7-.8s-2.7 3.5-5.6 2.5"/></symbol>
+      <symbol id="i-crown" viewBox="0 0 24 24"><path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/><path d="M8.2 15.2h7.6"/><path d="M8.2 13.4 7.6 9l2.6 1.9L12 8l1.8 2.9L16.4 9l-.6 4.4z"/></symbol>
+      <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 2.8 20 7v10l-8 4.2L4 17V7z"/><path d="M4 7l8 4.2L20 7M12 11.2v10"/><path d="M8 4.9l8 4.2v3.4"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header" data-header>
+    <div class="site-header__bar">
+      <a class="brand" href="#inicio" aria-label="Melia, ir al inicio">
+        <img src="assests/imagenes/logo_melia_horizontal.png" alt="" width="858" height="340">
+      </a>
+
+      <nav class="site-nav" aria-label="Principal">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="#productos">Productos</a></li>
+          <li><a class="site-nav__link" href="#origen">Origen</a></li>
+          <li><a class="site-nav__link" href="#proceso">Proceso</a></li>
+          <li><a class="site-nav__link" href="#colmena">Únete</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-header__actions">
+        <div class="cart-indicator" data-cart-indicator>
+          <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+          <span class="cart-indicator__count" data-cart-count hidden>0</span>
+          <span class="sr-only" data-cart-label>Carrito vacío</span>
+        </div>
+        <a class="btn btn--brown btn--sm site-header__cta" href="#productos" data-ripple>Tienda</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileNav" data-menu-toggle>
+          <span class="sr-only">Abrir menú</span>
+          <span class="menu-toggle__line" aria-hidden="true"></span>
+          <span class="menu-toggle__line" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Menú móvil" data-mobile-nav>
+      <ul class="mobile-nav__list">
+        <li><a class="mobile-nav__link" href="#productos">Productos</a></li>
+        <li><a class="mobile-nav__link" href="#origen">Origen</a></li>
+        <li><a class="mobile-nav__link" href="#proceso">Proceso</a></li>
+        <li><a class="mobile-nav__link" href="#colmena">Únete</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero__media" aria-hidden="true">
+        <img src="assests/imagenes/hero_bg.png" alt="" width="1024" height="339" fetchpriority="high" decoding="async">
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <h1 class="hero__title" id="hero-title">Melia</h1>
+        <p class="hero__accent accent">Siente el dulce de la realeza</p>
+        <p class="hero__lead">Sabor 100% natural en cada gota. Miel pura de la flora colombiana, cosechada con respeto por las abejas.</p>
+        <div class="hero__actions">
+          <a class="btn btn--honey btn--lg" href="#productos" data-ripple data-magnetic>
+            <span class="btn__label">Comprar miel</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#origen" data-ripple>Nuestro origen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TRUST BADGES ========== -->
+    <section class="trust" aria-label="Por qué elegir Melia">
+      <div class="container">
+        <ul class="trust__panel" data-stagger>
+          <li class="trust__item" data-reveal>
+            <span class="trust__icon" aria-hidden="true"><svg class="icon"><use href="#i-leaf"/></svg></span>
+            <div>
+              <p class="trust__title">Orgánica</p>
+              <p class="trust__text">Miel pura, sin aditivos ni azúcares añadidos.</p>
+            </div>
+          </li>
+          <li class="trust__item" data-reveal>
+            <span class="trust__icon" aria-hidden="true"><svg class="icon"><use href="#i-bee"/></svg></span>
+            <div>
+              <p class="trust__title">Apicultura ética</p>
+              <p class="trust__text">Cosechamos solo el excedente de cada colmena.</p>
+            </div>
+          </li>
+          <li class="trust__item" data-reveal>
+            <span class="trust__icon" aria-hidden="true"><svg class="icon"><use href="#i-crown"/></svg></span>
+            <div>
+              <p class="trust__title">Calidad premium</p>
+              <p class="trust__text">Lotes pequeños, envasados en origen.</p>
+            </div>
+          </li>
+          <li class="trust__item" data-reveal>
+            <span class="trust__icon" aria-hidden="true"><svg class="icon"><use href="#i-box"/></svg></span>
+            <div>
+              <p class="trust__title">Envíos seguros</p>
+              <p class="trust__text">Empaque protegido hasta tu puerta.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========== PRODUCTOS DESTACADOS ========== -->
+    <section class="products section" id="productos" aria-labelledby="productos-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title" id="productos-title" data-reveal>Nuestras mieles</h2>
+          <p class="section-lead" data-reveal>Cuatro flores, cuatro sabores. Toca un frasco para conocerlo de cerca.</p>
+        </header>
+
+        <!-- Precios tomados de las etiquetas de cada frasco (COP) -->
+        <ul class="products__grid" data-stagger data-products-grid>
+          <li data-reveal>
+            <article class="product-card" data-product="gota" data-cursor="view">
+              <button class="product-card__view" type="button" aria-label="Vista rápida de Gota, miel de eucalipto">
+                <span class="product-card__media">
+                  <img src="assests/imagenes/producto_gota.png" alt="Frasco de miel Melia Gota" width="377" height="557" loading="lazy" decoding="async">
+                </span>
+              </button>
+              <div class="product-card__info">
+                <h3 class="product-card__name">Gota</h3>
+                <p class="product-card__type">Miel de eucalipto</p>
+                <div class="product-card__row">
+                  <p class="product-card__price">$12.000 <span>COP</span></p>
+                  <button class="btn btn--brown btn--sm product-card__add" type="button" data-add-to-cart="gota" data-ripple>
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+                    <span class="btn__label">Añadir</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li data-reveal>
+            <article class="product-card" data-product="colmena" data-cursor="view">
+              <button class="product-card__view" type="button" aria-label="Vista rápida de Colmena, miel de pino">
+                <span class="product-card__media">
+                  <img src="assests/imagenes/producto_colmena.png" alt="Frasco de miel Melia Colmena" width="418" height="556" loading="lazy" decoding="async">
+                </span>
+              </button>
+              <div class="product-card__info">
+                <h3 class="product-card__name">Colmena</h3>
+                <p class="product-card__type">Miel de pino</p>
+                <div class="product-card__row">
+                  <p class="product-card__price">$18.000 <span>COP</span></p>
+                  <button class="btn btn--brown btn--sm product-card__add" type="button" data-add-to-cart="colmena" data-ripple>
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+                    <span class="btn__label">Añadir</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li data-reveal>
+            <article class="product-card" data-product="enjambre" data-cursor="view">
+              <button class="product-card__view" type="button" aria-label="Vista rápida de Enjambre, miel de frailejón">
+                <span class="product-card__media">
+                  <img src="assests/imagenes/producto_enjambre.png" alt="Frasco de miel Melia Enjambre" width="290" height="543" loading="lazy" decoding="async">
+                </span>
+              </button>
+              <div class="product-card__info">
+                <h3 class="product-card__name">Enjambre</h3>
+                <p class="product-card__type">Miel de frailejón</p>
+                <div class="product-card__row">
+                  <p class="product-card__price">$25.000 <span>COP</span></p>
+                  <button class="btn btn--brown btn--sm product-card__add" type="button" data-add-to-cart="enjambre" data-ripple>
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+                    <span class="btn__label">Añadir</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li data-reveal>
+            <article class="product-card" data-product="reina" data-cursor="view">
+              <button class="product-card__view" type="button" aria-label="Vista rápida de Reina, miel multifloral">
+                <span class="product-card__media">
+                  <img src="assests/imagenes/producto_reina.png" alt="Frasco de miel Melia Reina" width="295" height="552" loading="lazy" decoding="async">
+                </span>
+              </button>
+              <div class="product-card__info">
+                <h3 class="product-card__name">Reina</h3>
+                <p class="product-card__type">Miel multifloral</p>
+                <div class="product-card__row">
+                  <p class="product-card__price">$50.000 <span>COP</span></p>
+                  <button class="btn btn--brown btn--sm product-card__add" type="button" data-add-to-cart="reina" data-ripple>
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+                    <span class="btn__label">Añadir</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========== ORIGEN (PARALLAX) ========== -->
+    <section class="origin" id="origen" aria-labelledby="origen-title">
+      <div class="origin__media" aria-hidden="true" data-parallax>
+        <img src="assests/imagenes/apicultor_bg.webp" alt="" width="1024" height="227" loading="lazy" decoding="async">
+      </div>
+      <div class="origin__overlay" aria-hidden="true"></div>
+      <div class="container origin__content">
+        <p class="accent origin__accent" data-reveal>Nuestro origen</p>
+        <h2 class="section-title origin__title" id="origen-title" data-reveal>De nuestras abejas a tu hogar</h2>
+        <p class="origin__text" data-reveal>Trabajamos con apicultores locales que cuidan cada colmena a mano. Respetamos el ritmo de las abejas y cosechamos solo cuando la miel está lista.</p>
+      </div>
+    </section>
+
+    <!-- ========== PROCESO ========== -->
+    <section class="process section" id="proceso" aria-labelledby="proceso-title">
+      <div class="process__pattern" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-head section-head--center">
+          <h2 class="section-title" id="proceso-title" data-reveal>Del panal al frasco</h2>
+          <p class="section-lead" data-reveal>Un proceso sencillo y sin atajos, pensado para conservar el sabor original de cada flor.</p>
+        </header>
+
+        <ol class="process__steps" data-stagger data-reveal-line>
+          <li class="step" data-reveal>
+            <span class="step__hex" aria-hidden="true">01</span>
+            <div class="step__body">
+              <h3 class="step__title">Cuidamos</h3>
+              <p class="step__text">Visitamos cada colmena con calma y respetamos los ciclos naturales de las abejas.</p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step__hex" aria-hidden="true">02</span>
+            <div class="step__body">
+              <h3 class="step__title">Cosechamos</h3>
+              <p class="step__text">Retiramos solo los panales maduros y dejamos a la colmena la miel que necesita.</p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step__hex" aria-hidden="true">03</span>
+            <div class="step__body">
+              <h3 class="step__title">Envasamos</h3>
+              <p class="step__text">Filtramos con cuidado y sellamos cada frasco a mano, listo para tu mesa.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== NEWSLETTER & FOOTER ========== -->
+  <footer class="site-footer" id="colmena">
+    <section class="newsletter" aria-labelledby="newsletter-title">
+      <div class="newsletter__glow" aria-hidden="true"></div>
+      <div class="container newsletter__inner">
+        <div class="newsletter__copy">
+          <h2 class="newsletter__title" id="newsletter-title" data-reveal>Únete a la colmena</h2>
+          <p class="newsletter__lead" data-reveal>Recibe recetas, beneficios y ofertas exclusivas.</p>
+        </div>
+
+        <div class="newsletter__action" data-reveal data-newsletter>
+          <form class="newsletter-form" novalidate data-newsletter-form>
+            <label class="newsletter-form__label" for="newsletterEmail">Tu correo electrónico</label>
+            <div class="newsletter-form__field">
+              <input class="newsletter-form__input" id="newsletterEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required aria-describedby="newsletterHelp newsletterError">
+              <button class="btn btn--honey newsletter-form__submit" type="submit" data-ripple>
+                <span class="btn__label">Suscribirme</span>
+              </button>
+            </div>
+            <p class="newsletter-form__help" id="newsletterHelp">Sin spam. Puedes darte de baja cuando quieras.</p>
+            <p class="newsletter-form__error" id="newsletterError" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+              <span data-newsletter-error></span>
+            </p>
+          </form>
+
+          <div class="newsletter-success" tabindex="-1" hidden data-newsletter-success>
+            <div class="newsletter-success__badge" aria-hidden="true">
+              <svg viewBox="0 0 64 64">
+                <path class="newsletter-success__hex" pathLength="1" d="M32 4l24.25 14v28L32 60 7.75 46V18z"/>
+                <path class="newsletter-success__check" pathLength="1" d="M21 33l7.5 7.5L44 25"/>
+              </svg>
+              <span class="newsletter-success__spark" style="--x:-46px; --d:0ms"></span>
+              <span class="newsletter-success__spark" style="--x:38px; --d:120ms"></span>
+              <span class="newsletter-success__spark" style="--x:-18px; --d:240ms"></span>
+              <span class="newsletter-success__spark" style="--x:54px; --d:360ms"></span>
+              <span class="newsletter-success__spark" style="--x:6px; --d:480ms"></span>
+            </div>
+            <p class="newsletter-success__title">¡Bienvenido a Melia!</p>
+            <p class="newsletter-success__text">Pronto recibirás nuestras novedades.</p>
+          </div>
+          <p class="sr-only" role="status" aria-live="polite" data-newsletter-status></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container footer">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assests/imagenes/logo_melia_claro.png" alt="Melia" width="447" height="546" loading="lazy" decoding="async">
+          <p>Miel 100% natural de la flora colombiana, del panal a tu mesa.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Pie de página">
+          <div class="footer__col">
+            <p class="footer__heading">Tienda</p>
+            <ul>
+              <li><a href="#productos" data-open-product="gota">Gota</a></li>
+              <li><a href="#productos" data-open-product="colmena">Colmena</a></li>
+              <li><a href="#productos" data-open-product="enjambre">Enjambre</a></li>
+              <li><a href="#productos" data-open-product="reina">Reina</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__heading">Melia</p>
+            <ul>
+              <li><a href="#origen">Nuestro origen</a></li>
+              <li><a href="#proceso">Proceso</a></li>
+              <li><a href="#colmena">Newsletter</a></li>
+            </ul>
+          </div>
+          <!-- TODO: añadir las redes reales de Melia y descomentar
+          <div class="footer__col">
+            <p class="footer__heading">Síguenos</p>
+            <ul>
+              <li><a href="https://instagram.com/TU_USUARIO" rel="noopener" target="_blank">Instagram</a></li>
+              <li><a href="https://wa.me/57XXXXXXXXXX" rel="noopener" target="_blank">WhatsApp</a></li>
+            </ul>
+          </div>
+          -->
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p>© <span data-year>2026</span> Melia. Todos los derechos reservados.</p>
+        <a href="#inicio">Volver arriba</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MODAL: VISTA RÁPIDA ========== -->
+  <dialog class="modal" id="quickView" aria-labelledby="qvTitle" aria-describedby="qvDesc" data-quick-view>
+    <div class="modal__panel">
+      <button class="modal__close" type="button" aria-label="Cerrar vista rápida" data-modal-close>
+        <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+
+      <div class="modal__media">
+        <img src="" alt="" width="400" height="560" data-qv="image">
+      </div>
+
+      <div class="modal__body">
+        <p class="modal__type" data-qv="type"></p>
+        <h2 class="modal__title" id="qvTitle" data-qv="name"></h2>
+        <p class="modal__price"><span data-qv="price"></span> <span class="modal__currency">COP</span></p>
+        <p class="modal__desc" id="qvDesc" data-qv="description"></p>
+
+        <div class="modal__details">
+          <p class="modal__label">Notas de sabor</p>
+          <ul class="modal__notes" data-qv="notes"></ul>
+          <p class="modal__label">Ideal para</p>
+          <p class="modal__pairing" data-qv="pairing"></p>
+        </div>
+
+        <div class="modal__buy">
+          <div class="qty" role="group" aria-label="Cantidad">
+            <button class="qty__btn" type="button" data-qty-step="-1" aria-label="Quitar una unidad">
+              <svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg>
+            </button>
+            <input class="qty__input" type="number" inputmode="numeric" min="1" max="10" value="1" aria-label="Cantidad" data-qty-input>
+            <button class="qty__btn" type="button" data-qty-step="1" aria-label="Añadir una unidad">
+              <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+            </button>
+          </div>
+          <p class="modal__total">Total <strong data-qv="total"></strong></p>
+        </div>
+
+        <button class="btn btn--honey btn--xl modal__add" type="button" data-ripple data-magnetic data-modal-add>
+          <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
+          <span class="btn__label">Añadir al carrito</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast>
+    <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+    <span data-toast-text></span>
+  </div>
+
+  <!-- JS modular: cada archivo registra su módulo en window.Melia y main.js los inicia.
+       Scripts clásicos con defer para que funcione también abriendo el archivo directamente (file://). -->
+  <script src="js/modules/utils.js" defer></script>
+  <script src="js/modules/products-data.js" defer></script>
+  <script src="js/modules/toast.js" defer></script>
+  <script src="js/modules/header.js" defer></script>
+  <script src="js/modules/reveal.js" defer></script>
+  <script src="js/modules/parallax.js" defer></script>
+  <script src="js/modules/effects.js" defer></script>
+  <script src="js/modules/cart.js" defer></script>
+  <script src="js/modules/modal.js" defer></script>
+  <script src="js/modules/cursor.js" defer></script>
+  <script src="js/modules/newsletter.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

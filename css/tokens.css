@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Melia · Tokens de diseño
+   Colores de marca, tipografías, radios, sombras y capas (z-index).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fuentes de marca (licencia propia)
+   "Adelia" (títulos/logo) y "Ananda" (acentos) son caligráficas y no están
+   en Google Fonts.
+   - Si están instaladas en el equipo, local() las usa directamente.
+   - Para la web publicada: copia los archivos .woff2 a assests/fuentes/
+     y descomenta la línea url(...) de cada bloque (revisa antes que la
+     licencia permita uso web/comercial).
+   Mientras tanto se usan los fallbacks: Cormorant Garamond y Allura.
+   Reglas de uso: nunca en MAYÚSCULAS, nunca con letter-spacing (rompe las
+   uniones de la caligrafía) y nunca para números (Ananda Personal Use
+   sustituye los dígitos por una marca de agua).
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Adelia";
+  src: local("Adelia"), local("Adelia Regular");
+  /* src: local("Adelia"), url("../assests/fuentes/Adelia.woff2") format("woff2"); */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ananda";
+  src: local("Ananda"), local("Ananda Regular");
+  /* src: local("Ananda"), url("../assests/fuentes/Ananda.woff2") format("woff2"); */
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Marca */
+  --honey: #d39c48;          /* Primario: dorado / miel */
+  --honey-light: #e2b46a;
+  --honey-soft: #ecd3a5;
+  --olive: #8e895e;          /* Secundario: verde oliva */
+  --olive-deep: #5f5b3b;     /* oliva legible sobre crema (AA) */
+  --brown: #60441e;          /* Oscuro: marrón */
+  --brown-deep: #47320f;
+  --cream: #f5f1e7;          /* Fondo claro: hueso / crema */
+
+  /* Derivados de la paleta */
+  --ink: #2b1e0e;            /* texto principal */
+  --ink-soft: #6a5638;       /* texto secundario (AA sobre crema) */
+  --cream-50: #fbf8f1;
+  --cream-200: #ede5d3;
+  --cream-300: #e3d7bd;
+  --line: rgb(96 68 30 / 0.12);
+  --on-dark: #f5f1e7;
+  --on-dark-soft: #d7cbb3;   /* texto secundario sobre marrón (AA) */
+
+  /* Tipografía */
+  --font-display: "Adelia", "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --font-accent: "Ananda", "Allura", "Segoe Script", cursive;
+  --font-body: "Montserrat", "Lato", "Segoe UI", system-ui, sans-serif;
+
+  --fs-hero: clamp(5rem, 3rem + 10vw, 10.5rem);
+  --fs-h2: clamp(2.6rem, 1.8rem + 3vw, 4.4rem);
+  --fs-h3: clamp(1.9rem, 1.6rem + 0.9vw, 2.35rem);
+  --fs-accent: clamp(1.6rem, 1.25rem + 1.3vw, 2.4rem);
+  --fs-lead: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+
+  /* Forma: interactivos = píldora, contenedores = 24px, iconos = hexágono */
+  --radius-sm: 12px;
+  --radius: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Sombras teñidas con el marrón de marca (nunca negro puro) */
+  --shadow-sm: 0 2px 10px rgb(96 68 30 / 0.08);
+  --shadow-md: 0 18px 44px -18px rgb(96 68 30 / 0.38);
+  --shadow-lg: 0 40px 90px -30px rgb(43 30 14 / 0.55);
+  --shadow-honey: 0 14px 30px -12px rgb(211 156 72 / 0.75);
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layout */
+  --gutter: 16px;
+  --container: 1240px;
+  --header-h: 64px;
+  --header-gap: 10px;
+
+  /* Capas: el modal usa la "top layer" nativa de <dialog>, por encima de todo */
+  --z-base: 1;
+  --z-header: 100;
+  --z-toast: 200;
+  --z-cursor: 300;
+
+  /* Panal SVG reutilizable (fondos sutiles) */
+  --honeycomb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%238e895e' stroke-width='1.1'/%3E%3C/svg%3E");
+  --honeycomb-honey: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23d39c48' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 28px;
+    --header-h: 68px;
+    --header-gap: 14px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root { --gutter: 40px; }
+}
