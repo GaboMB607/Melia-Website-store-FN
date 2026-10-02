@@ -316,7 +316,7 @@
             </p>
           </form>
 
-          <div class="newsletter-success" tabindex="-1" hidden data-newsletter-success>
+          <div class="newsletter-success" hidden data-newsletter-success>
             <div class="newsletter-success__badge" aria-hidden="true">
               <svg viewBox="0 0 64 64">
                 <path class="newsletter-success__hex" pathLength="1" d="M32 4l24.25 14v28L32 60 7.75 46V18z"/>
@@ -329,7 +329,7 @@
               <span class="newsletter-success__spark" style="--x:6px; --d:480ms"></span>
             </div>
             <p class="newsletter-success__title">¡Bienvenido a Melia!</p>
-            <p class="newsletter-success__text">Pronto recibirás nuestras novedades.</p>
+            <p class="newsletter-success__text">Revisa tu correo.</p>
           </div>
           <p class="sr-only" role="status" aria-live="polite" data-newsletter-status></p>
         </div>
@@ -427,6 +427,10 @@
     <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
     <span data-toast-text></span>
   </div>
+
+  <!-- SDK oficial de EmailJS (versión browser). Va antes que los scripts propios:
+       con defer se ejecutan en orden, así window.emailjs existe cuando arranca newsletter.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
   <!-- JS modular: cada archivo registra su módulo en window.Melia y main.js los inicia.
        Scripts clásicos con defer para que funcione también abriendo el archivo directamente (file://). -->

@@ -99,10 +99,6 @@
   to   { opacity: 0; }
 }
 
-@keyframes fade-out-down {
-  to { opacity: 0; transform: translate3d(0, 12px, 0); }
-}
-
 /* Modal: hoja inferior en móvil, tarjeta centrada en escritorio */
 @keyframes sheet-in {
   from { transform: translate3d(0, 100%, 0); }

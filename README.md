@@ -71,9 +71,19 @@ y nunca para números.
 
 ## Newsletter y EmailJS
 
-El formulario valida el correo, muestra "Enviando..." y a los 1.5 s el mensaje de
-bienvenida. Para enviarlo de verdad, sigue los pasos comentados al inicio de
-`js/modules/newsletter.js` (SDK, IDs y `enabled: true`).
+El formulario de "Únete a la colmena" envía el correo con **EmailJS**:
+
+- SDK oficial cargado desde el CDN en `index.html` (`@emailjs/browser@4`).
+- Configuración (Public Key, Service ID y Template ID) en `EMAILJS_CONFIG`, dentro de
+  `js/modules/newsletter.js`.
+- Se envía `{ email: correo_del_usuario }`: en la plantilla de EmailJS usa la variable
+  `{{email}}` (por ejemplo en el campo *To Email* para que el suscriptor reciba la bienvenida).
+- Flujo: valida el correo, el botón cambia a "Enviando...", y al responder EmailJS limpia el
+  formulario y muestra "¡Bienvenido a Melia! Revisa tu correo." debajo. Si falla, muestra un
+  error bajo el campo y conserva el correo para reintentar.
+
+La Public Key de EmailJS está pensada para ir en el código del navegador (no es secreta).
+Para evitar abusos, revisa las opciones de seguridad de tu cuenta de EmailJS.
 
 ## Carrito
 

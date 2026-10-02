@@ -1,19 +1,14 @@
 /* ==========================================================================
-   Melia · Newsletter "Únete a la colmena"
-   Intercepta el envío, valida el correo, muestra el estado de carga
-   ("Enviando...") y, tras 1.5 s, un mensaje de éxito animado.
+   Melia · Newsletter "Únete a la colmena" (EmailJS)
+   - Inicializa EmailJS con la Public Key
+   - Intercepta el envío del formulario (sin recargar la página)
+   - Valida el correo, muestra "Enviando..." y envía con emailjs.send()
+   - Éxito: limpia el formulario y muestra el mensaje debajo
+   - Error: muestra un mensaje de error bajo el campo
 
-   ---------------------------------------------------------------------------
-   INTEGRACIÓN CON EMAILJS (preparada, desactivada)
-   ---------------------------------------------------------------------------
-   1. Crea una cuenta en https://www.emailjs.com y configura:
-      - un Email Service  (te da el SERVICE_ID)
-      - un Email Template (te da el TEMPLATE_ID) con la variable {{user_email}}
-      - tu Public Key     (Account > General)
-   2. En index.html, ANTES de los scripts de /js, añade el SDK:
-      <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
-   3. Rellena EMAILJS_CONFIG más abajo y pon enabled: true.
-   4. Descomenta el bloque marcado como "EmailJS" dentro de sendSubscription().
+   En la plantilla de EmailJS el correo llega en la variable {{email}}
+   (úsala en "To Email" para que el suscriptor reciba la bienvenida).
+   El SDK se carga desde el CDN oficial en index.html.
    ========================================================================== */
 (function (Melia) {
   'use strict';
@@ -21,13 +16,11 @@
   const { $ } = Melia.utils;
 
   const EMAILJS_CONFIG = {
-    enabled: false,
-    publicKey: 'TU_PUBLIC_KEY',
-    serviceId: 'TU_SERVICE_ID',
-    templateId: 'TU_TEMPLATE_ID',
+    publicKey: 's8S8dT_fZVSnciSk8',
+    serviceId: 'service_os8182x',
+    templateId: 'template_lnrvv6d',
   };
 
-  const SIMULATED_DELAY_MS = 1500;
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   const MESSAGES = {
@@ -35,29 +28,31 @@
     invalid: 'Revisa tu correo: debe tener el formato nombre@correo.com.',
     failed: 'No pudimos completar tu suscripción. Inténtalo de nuevo en un momento.',
     loading: 'Enviando...',
-    success: '¡Bienvenido a Melia! Pronto recibirás nuestras novedades.',
+    success: '¡Bienvenido a Melia! Revisa tu correo.',
   };
 
-  /**
-   * Envía la suscripción. Hoy simula la petición; con EmailJS activo,
-   * devuelve la promesa real de emailjs.send().
-   */
-  function sendSubscription(email) {
-    /* ---------- EmailJS ----------
-    if (EMAILJS_CONFIG.enabled && window.emailjs) {
-      window.emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
-      return window.emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
-        user_email: email,
-      });
+  function initEmailJS() {
+    if (!window.emailjs) {
+      console.warn('[Melia] El SDK de EmailJS no se cargó (¿sin conexión o bloqueado?).');
+      return;
     }
-    -------------------------------- */
-    return new Promise((resolve) => window.setTimeout(resolve, SIMULATED_DELAY_MS));
+    window.emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+  }
+
+  /** Devuelve la promesa de EmailJS; falla si el SDK no está disponible */
+  function sendSubscription(email) {
+    if (!window.emailjs) {
+      return Promise.reject(new Error('EmailJS no está disponible'));
+    }
+    return window.emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, { email });
   }
 
   function init() {
     const wrapper = $('[data-newsletter]');
     const form = wrapper && $('[data-newsletter-form]', wrapper);
     if (!form) return;
+
+    initEmailJS();
 
     const input = $('input[type="email"]', form);
     const submit = $('button[type="submit"]', form);
@@ -68,10 +63,12 @@
     const status = $('[data-newsletter-status]', wrapper);
     const idleLabel = submitLabel.textContent;
 
-    const showError = (message) => {
+    /** markField: false para errores de envío (el correo en sí es válido) */
+    const showError = (message, { markField = true } = {}) => {
       errorText.textContent = message;
       errorBox.hidden = false;
-      input.setAttribute('aria-invalid', 'true');
+      status.textContent = message;
+      if (markField) input.setAttribute('aria-invalid', 'true');
     };
 
     const clearError = () => {
@@ -90,12 +87,10 @@
 
     const showSuccess = () => {
       status.textContent = MESSAGES.success;
-      form.classList.add('is-leaving');
-      window.setTimeout(() => {
-        form.hidden = true;
-        success.hidden = false;
-        success.focus({ preventScroll: true });
-      }, 320);
+      // ocultar y volver a mostrar reinicia la animación si se suscriben otra vez
+      success.hidden = true;
+      void success.offsetWidth;
+      success.hidden = false;
     };
 
     input.addEventListener('input', () => {
@@ -119,14 +114,19 @@
       }
 
       clearError();
+      success.hidden = true;
+      status.textContent = '';
       setLoading(true);
 
       try {
         await sendSubscription(email);
+        setLoading(false);
+        form.reset();
         showSuccess();
       } catch (error) {
+        console.error('[Melia] No se pudo enviar la suscripción:', error);
         setLoading(false);
-        showError(MESSAGES.failed);
+        showError(MESSAGES.failed, { markField: false });
       }
     });
   }
