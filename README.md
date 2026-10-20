@@ -95,11 +95,10 @@ Para evitar abusos, revisa las opciones de seguridad de tu cuenta de EmailJS.
 
 - `logo_melia_horizontal.png`, `logo_melia_claro.png` y `favicon.png` se generaron a partir
   de `logo_melia.png` (fondo transparente, versión clara para fondos oscuros).
-- `logo_animado_claro.gif` (footer) se generó a partir de `logo_animado.gif`: recortado a la
-  abeja, con el fondo blanco cambiado por el marrón del footer (`#60441e`) y el marrón oscuro
-  pasado a crema. `logo_animado_claro.png` es un cuadro estático que se muestra cuando el
-  sistema tiene activado "reducir movimiento". Si cambias el color del footer, hay que
-  regenerar el GIF con el nuevo fondo.
+- `logo_animado.gif` (footer, se reproduce siempre) se generó a partir de la exportación
+  original `logo_animado_original.gif`: recortado a la abeja, con el fondo blanco cambiado por
+  el marrón del footer (`#60441e`) y el marrón oscuro pasado a crema. Si cambias el color del
+  footer o el GIF original, hay que regenerarlo con el nuevo fondo.
 - `hero_bg.png` (1024×339) y `apicultor_bg.webp` (1024×227) son de baja resolución para
   ocupar toda la pantalla: conviene reemplazarlas por versiones de **2400 px de ancho o más**
   con el mismo nombre.

@@ -29,9 +29,12 @@
   animation: hero-zoom 2.8s var(--ease-out) both;
 }
 
-/* "Melia" se escribe de izquierda a derecha, como el trazo de la caligrafía */
+/* "Melia" se escribe de izquierda a derecha, como el trazo de la caligrafía.
+   fill-mode "backwards": al terminar no queda ningún clip-path aplicado, así los
+   trazos de Adelia que salen de la caja (la "M" sobresale ~0.5em arriba y abajo)
+   nunca se recortan. */
 .hero__title {
-  animation: handwrite 1.8s var(--ease-in-out) 0.2s both;
+  animation: handwrite 1.8s var(--ease-in-out) 0.2s backwards;
 }
 
 .hero__accent {
@@ -79,9 +82,9 @@
 }
 
 @keyframes handwrite {
-  /* insets negativos arriba/abajo/izquierda para no recortar los trazos */
-  from { clip-path: inset(-20% 100% -30% -10%); }
-  to   { clip-path: inset(-20% -10% -30% -10%); }
+  /* márgenes en em (no en %) para dejar ver los trazos que salen de la línea */
+  from { clip-path: inset(-1em 100% -1em -1em); }
+  to   { clip-path: inset(-1em -1em -1em -1em); }
 }
 
 @keyframes parallax-shift {

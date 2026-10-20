@@ -308,13 +308,9 @@
 .footer__logo {
   display: block;
   width: 124px;
+  height: auto;
   /* compensa el margen interno del GIF para alinear la abeja con el texto */
   margin-left: -6px;
-}
-
-.footer__logo img {
-  width: 100%;
-  height: auto;
 }
 
 /* Enlace a Instagram con la tipografía de marca de los títulos (Adelia) */

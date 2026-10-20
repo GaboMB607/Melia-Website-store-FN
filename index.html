@@ -340,12 +340,8 @@
     <div class="container footer">
       <div class="footer__grid">
         <div class="footer__brand">
-          <!-- Abeja animada (versión clara para el fondo marrón). Con "reducir movimiento"
-               activado se muestra un cuadro estático en lugar del GIF. -->
-          <picture class="footer__logo">
-            <source srcset="assests/imagenes/logo_animado_claro.png" media="(prefers-reduced-motion: reduce)">
-            <img src="assests/imagenes/logo_animado_claro.gif" alt="" width="274" height="204" loading="lazy" decoding="async">
-          </picture>
+          <!-- Abeja animada: se reproduce siempre, para todos los usuarios -->
+          <img class="footer__logo" src="assests/imagenes/logo_animado.gif" alt="" width="274" height="204" loading="lazy" decoding="async">
           <a class="footer__social" href="https://www.instagram.com/melia_0910/" target="_blank" rel="noopener noreferrer" aria-label="Melia en Instagram (se abre en una pestaña nueva)">
             Melia
             <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg>

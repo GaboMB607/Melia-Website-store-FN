@@ -47,21 +47,28 @@
 
 .hero__content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr); /* la columna nunca supera el contenedor */
   justify-items: start;
   gap: 1rem;
 }
 
+/* En Adelia la "M" sobresale ~0.5em por arriba y por abajo de su línea:
+   el margen superior le deja espacio bajo el header */
 .hero__title {
-  margin-left: -0.04em;
-  padding-right: 0.15em;
+  overflow: visible;
+  margin-top: 0.45em;
   font-size: var(--fs-hero);
   line-height: 1.05;
   color: var(--cream);
   text-shadow: 0 6px 40px rgb(28 22 10 / 0.35);
 }
 
+/* El lema arranca a la derecha de la cola de la "M" (como una firma) y deja
+   espacio debajo para que la cola no toque el párrafo */
 .hero__accent {
   margin-top: -0.35em;
+  margin-bottom: calc(var(--fs-hero) * 0.15);
+  padding-left: calc(var(--fs-hero) * 0.14);
   color: var(--honey-light);
 }
 
