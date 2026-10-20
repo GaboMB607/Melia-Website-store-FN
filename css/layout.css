@@ -299,12 +299,54 @@
 
 .footer__brand {
   display: grid;
-  gap: 1.1rem;
+  justify-items: start;
+  gap: 1rem;
   max-width: 22rem;
 }
 
-.footer__brand img {
-  width: 104px;
+/* Abeja animada: ancho fijo, alto proporcional, alineada a la izquierda */
+.footer__logo {
+  display: block;
+  width: 124px;
+  /* compensa el margen interno del GIF para alinear la abeja con el texto */
+  margin-left: -6px;
+}
+
+.footer__logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* Enlace a Instagram con la tipografía de marca de los títulos (Adelia) */
+.footer__social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-block: -0.4rem 0.4rem; /* aire para el trazo descendente de la "M" */
+  padding-bottom: 0.1em;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 500;
+  font-synthesis: none;
+  line-height: 1.2;
+  color: var(--honey-light);
+  transition: color 0.3s ease;
+}
+
+.footer__social .icon {
+  width: 20px;
+  height: 20px;
+  color: var(--on-dark-soft);
+  transition: color 0.3s ease, transform 0.5s var(--ease-out);
+}
+
+.footer__social:hover {
+  color: var(--cream);
+}
+
+.footer__social:hover .icon {
+  color: var(--honey-light);
+  transform: translateY(-2px);
 }
 
 .footer__brand p {

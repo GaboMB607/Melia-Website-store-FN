@@ -38,6 +38,7 @@
       <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
       <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
       <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8v.01"/></symbol>
       <!-- Iconos de confianza -->
       <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5.5 19.5C4.6 11.5 10 4.6 20 4c.4 9.6-5.7 15.6-14.5 15.5z"/><path d="M5.5 19.5 14.5 10.5"/><path d="M10 15h4.2M11.2 9.8v3.9"/></symbol>
       <symbol id="i-bee" viewBox="0 0 24 24"><circle cx="12" cy="6.6" r="2"/><path d="M11 4.8 9.8 3M13 4.8l1.2-1.8"/><path d="M12 9c2.7 0 4.4 2.4 4.4 5.5S14.4 21 12 21s-4.4-3.4-4.4-6.5S9.3 9 12 9z"/><path d="M7.8 13.2h8.4M8.1 16.6h7.8"/><path d="M10.4 10.4C8.2 7.3 4.3 7.4 3.7 9.6s2.7 3.5 5.6 2.5M13.6 10.4c2.2-3.1 6.1-3 6.7-.8s-2.7 3.5-5.6 2.5"/></symbol>
@@ -339,7 +340,16 @@
     <div class="container footer">
       <div class="footer__grid">
         <div class="footer__brand">
-          <img src="assests/imagenes/logo_melia_claro.png" alt="Melia" width="447" height="546" loading="lazy" decoding="async">
+          <!-- Abeja animada (versión clara para el fondo marrón). Con "reducir movimiento"
+               activado se muestra un cuadro estático en lugar del GIF. -->
+          <picture class="footer__logo">
+            <source srcset="assests/imagenes/logo_animado_claro.png" media="(prefers-reduced-motion: reduce)">
+            <img src="assests/imagenes/logo_animado_claro.gif" alt="" width="274" height="204" loading="lazy" decoding="async">
+          </picture>
+          <a class="footer__social" href="https://www.instagram.com/melia_0910/" target="_blank" rel="noopener noreferrer" aria-label="Melia en Instagram (se abre en una pestaña nueva)">
+            Melia
+            <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg>
+          </a>
           <p>Miel 100% natural de la flora colombiana, del panal a tu mesa.</p>
         </div>
         <nav class="footer__nav" aria-label="Pie de página">
@@ -360,12 +370,11 @@
               <li><a href="#colmena">Newsletter</a></li>
             </ul>
           </div>
-          <!-- TODO: añadir las redes reales de Melia y descomentar
+          <!-- TODO: añadir el WhatsApp real de Melia y descomentar
           <div class="footer__col">
-            <p class="footer__heading">Síguenos</p>
+            <p class="footer__heading">Contacto</p>
             <ul>
-              <li><a href="https://instagram.com/TU_USUARIO" rel="noopener" target="_blank">Instagram</a></li>
-              <li><a href="https://wa.me/57XXXXXXXXXX" rel="noopener" target="_blank">WhatsApp</a></li>
+              <li><a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
             </ul>
           </div>
           -->
