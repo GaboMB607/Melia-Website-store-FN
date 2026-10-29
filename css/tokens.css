@@ -58,10 +58,12 @@
   --font-accent: "Ananda", "Allura", "Segoe Script", cursive;
   --font-body: "Montserrat", "Lato", "Segoe UI", system-ui, sans-serif;
 
-  --fs-hero: clamp(5rem, 3rem + 10vw, 10.5rem);
+  /* "Melia" en Adelia mide ~4em de ancho: 23cqi (23% del ancho de .hero__content)
+     garantiza que nunca se salga, desde 320px hasta escritorio */
+  --fs-hero: clamp(3.75rem, 23cqi, 10.5rem);
   --fs-h2: clamp(2.6rem, 1.8rem + 3vw, 4.4rem);
   --fs-h3: clamp(1.9rem, 1.6rem + 0.9vw, 2.35rem);
-  --fs-accent: clamp(1.6rem, 1.25rem + 1.3vw, 2.4rem);
+  --fs-accent: clamp(1.35rem, 0.9rem + 2.6vw, 2.4rem);
   --fs-lead: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
 
   /* Forma: interactivos = píldora, contenedores = 24px, iconos = hexágono */

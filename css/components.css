@@ -221,14 +221,16 @@
 }
 
 .product-card__info {
+  container-type: inline-size; /* el nombre se mide contra el ancho de la tarjeta */
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   padding: 1.25rem 0.45rem 0;
 }
 
-/* La caligrafía es ancha: el tamaño se ajusta al ancho real de cada tarjeta */
+/* La caligrafía es ancha ("Enjambre" mide ~6em): 15.5cqi lo mantiene dentro de
+   la tarjeta en cualquier pantalla, de 320px a escritorio */
 .product-card__name {
-  font-size: 1.35rem;
+  font-size: clamp(1.05rem, 15.5cqi, 2.35rem);
   line-height: 1.25;
   color: var(--brown);
 }
@@ -247,7 +249,7 @@
 }
 
 .product-card__price {
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 0.8rem + 0.8vw, 1.05rem);
   font-weight: 700;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
@@ -255,7 +257,7 @@
 }
 
 .product-card__price span {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--ink-soft);
@@ -265,6 +267,22 @@
   width: 100%;
 }
 
+/* Celulares muy estrechos (320-359px): un poco menos de relleno para que
+   precio y botón quepan en las dos columnas */
+@media (max-width: 359px) {
+  .product-card {
+    padding: 6px 6px 14px;
+  }
+
+  .product-card__info {
+    padding-inline: 0.3rem;
+  }
+
+  .product-card__add {
+    padding-inline: 0.8em;
+  }
+}
+
 @media (min-width: 640px) {
   .product-card {
     padding: 10px 10px 18px;
@@ -272,16 +290,6 @@
 
   .product-card__info {
     padding-inline: 0.6rem;
-  }
-
-  .product-card__name {
-    font-size: 1.9rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .product-card__name {
-    font-size: clamp(1.8rem, 0.6rem + 1.9vw, 2.35rem);
   }
 }
 
@@ -403,6 +411,7 @@
 }
 
 .modal__body {
+  container-type: inline-size; /* el título se mide contra el ancho del panel */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -419,7 +428,7 @@
 
 .modal__title {
   padding-block: 0.12em 0.04em;
-  font-size: clamp(3rem, 2.3rem + 2.8vw, 4.2rem);
+  font-size: clamp(2.4rem, 15cqi, 4.2rem);
   line-height: 1.2;
   color: var(--brown);
 }
