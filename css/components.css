@@ -104,6 +104,18 @@
   border-color: var(--cream);
 }
 
+/* Secundario sobre fondo claro (p. ej. "Seguir comprando") */
+.btn--outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--brown);
+  border-color: rgb(96 68 30 / 0.35);
+}
+
+.btn--outline:hover {
+  --btn-bg: rgb(96 68 30 / 0.06);
+  border-color: var(--brown);
+}
+
 .btn--sm {
   min-height: 40px;
   padding: 0 1.15em;
@@ -358,12 +370,10 @@
   animation: sheet-out 0.32s var(--ease-in-out) both;
 }
 
-.modal__close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 3;
+/* Botón de cierre circular (vista rápida y carrito) */
+.close-btn {
   display: grid;
+  flex: none;
   place-items: center;
   width: 44px;
   height: 44px;
@@ -376,15 +386,22 @@
   transition: transform 0.5s var(--ease-out), background-color 0.3s ease, color 0.3s ease;
 }
 
-.modal__close:hover {
+.close-btn:hover {
   transform: rotate(90deg);
   background: var(--brown);
   color: var(--cream);
 }
 
-.modal__close .icon {
+.close-btn .icon {
   width: 20px;
   height: 20px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
 }
 
 .modal__media {
@@ -557,6 +574,278 @@
 }
 
 /* --------------------------------------------------------------------------
+   Carrito: panel lateral "Mi Carrito" (<dialog> nativo)
+   Celular: ocupa todo el ancho. 480px+: panel de 440px con esquinas
+   redondeadas del lado de la página.
+   -------------------------------------------------------------------------- */
+.drawer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.drawer[open] {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer::backdrop {
+  background: rgb(36 25 10 / 0.5);
+  -webkit-backdrop-filter: blur(6px) saturate(115%);
+  backdrop-filter: blur(6px) saturate(115%);
+  animation: fade-in 0.4s ease both;
+}
+
+.drawer.is-closing::backdrop {
+  animation: fade-out 0.3s ease both;
+}
+
+.drawer__panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(440px, 100%);
+  height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  box-shadow: var(--shadow-lg);
+  animation: drawer-in 0.55s var(--ease-out) both;
+}
+
+.drawer.is-closing .drawer__panel {
+  animation: drawer-out 0.3s var(--ease-in-out) both;
+}
+
+@media (min-width: 480px) {
+  .drawer__panel {
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  }
+}
+
+.drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem 0.9rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* padding arriba: la "M" de Adelia sube ~0.5em por encima de la línea */
+.drawer__title {
+  padding-block: 0.3em 0.05em;
+  font-size: clamp(1.9rem, 1.2rem + 3vw, 2.6rem);
+  line-height: 1.2;
+  color: var(--brown);
+}
+
+.drawer__summary {
+  margin-top: 0.75rem; /* deja pasar el trazo descendente de "Mi Carrito" */
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.drawer__body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Líneas del carrito */
+.cart-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.9rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-50);
+  transition: opacity 0.25s ease, transform 0.3s var(--ease-out);
+}
+
+.cart-item.is-removing {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+.cart-item__media {
+  display: grid;
+  place-items: center;
+  height: 92px;
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(60% 50% at 50% 62%, rgb(211 156 72 / 0.38), transparent 72%),
+    var(--cream-300);
+  overflow: hidden;
+}
+
+.cart-item__media img {
+  width: auto;
+  height: 84px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 6px rgb(58 40 16 / 0.25));
+}
+
+.cart-item__info {
+  container-type: inline-size; /* el nombre caligráfico se mide contra este ancho */
+  display: grid;
+  min-width: 0;
+}
+
+.cart-item__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 14cqi, 1.6rem);
+  font-weight: 500;
+  font-synthesis: none;
+  line-height: 1.25;
+  color: var(--brown);
+}
+
+.cart-item__meta {
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--olive-deep);
+}
+
+.cart-item__unit {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-item__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.cart-item__subtotal {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-item__remove {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: -4px -4px 0 0;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.cart-item__remove:hover {
+  background: rgb(96 68 30 / 0.1);
+  color: var(--brown);
+}
+
+.cart-item__remove .icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Carrito vacío */
+.cart-empty {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 3rem 0.5rem;
+  text-align: center;
+}
+
+.cart-empty[hidden] {
+  display: none;
+}
+
+.cart-empty__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 72px;
+  margin-bottom: 0.5rem;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: rgb(142 137 94 / 0.18);
+  color: var(--brown);
+}
+
+.cart-empty__icon .icon {
+  width: 30px;
+  height: 30px;
+}
+
+.cart-empty__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-synthesis: none;
+  line-height: 1.25;
+  color: var(--brown);
+}
+
+.cart-empty__text {
+  max-width: 22rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* Pie: total y acciones */
+.drawer__foot {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem max(1.25rem, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--cream-50);
+}
+
+.drawer__foot[hidden] {
+  display: none;
+}
+
+.drawer__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.drawer__total strong {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.drawer__note {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.drawer__foot .btn {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
    Selector de cantidad
    -------------------------------------------------------------------------- */
 .qty {
@@ -611,6 +900,29 @@
   border-radius: 8px;
 }
 
+/* Variante compacta (líneas del carrito) */
+.qty--sm {
+  padding: 3px;
+}
+
+.qty--sm .qty__btn {
+  width: 32px;
+  height: 32px;
+}
+
+.qty--sm .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.qty__value {
+  min-width: 2rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 /* --------------------------------------------------------------------------
    Toast de confirmación
    -------------------------------------------------------------------------- */
@@ -657,6 +969,36 @@
   background: var(--honey);
   color: var(--ink);
   stroke-width: 2;
+}
+
+.toast__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.toast__action {
+  flex: none;
+  margin-right: -0.5rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: var(--honey);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.toast__action:hover {
+  background: var(--honey-light);
+}
+
+.toast__action[hidden] {
+  display: none;
+}
+
+.toast :focus-visible {
+  outline-color: var(--honey-light);
 }
 
 /* --------------------------------------------------------------------------

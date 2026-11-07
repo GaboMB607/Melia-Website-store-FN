@@ -34,7 +34,8 @@ HTML5, CSS3 y JavaScript vanilla, sin dependencias ni proceso de build.
 │       ├── reveal.js         # animaciones al hacer scroll (IntersectionObserver)
 │       ├── parallax.js       # parallax de "Origen" (respaldo JS)
 │       ├── effects.js        # ripple y botón magnético
-│       ├── cart.js           # carrito local + contador del header
+│       ├── cart.js           # estado del carrito + contador del header
+│       ├── cart-drawer.js    # panel "Mi Carrito" y pedido por WhatsApp
 │       ├── modal.js          # modal "Vista rápida" (<dialog>)
 │       ├── cursor.js         # cursor personalizado
 │       ├── toast.js          # mensajes de confirmación
@@ -84,9 +85,18 @@ Para evitar abusos, revisa las opciones de seguridad de tu cuenta de EmailJS.
 
 ## Carrito
 
-"Añadir" (tarjeta) y "Añadir al carrito" (modal) guardan `{ producto: cantidad }` en
-`localStorage` y actualizan el contador del header. No hay checkout todavía:
-`js/modules/cart.js` es el punto de conexión con una pasarela o tienda.
+- **Añadir:** "Añadir" (tarjeta) y "Añadir al carrito" (vista rápida) guardan
+  `{ producto: cantidad }` en `localStorage` y actualizan el contador del header. El aviso
+  que aparece incluye un botón "Ver carrito".
+- **Panel "Mi Carrito":** se abre con el icono del carrito del header
+  (`js/modules/cart-drawer.js`). Muestra cada producto con nombre, precio unitario, cantidad
+  editable, subtotal y botón para eliminar, más el total.
+- **Finalizar compra:** abre WhatsApp (`+57 310 585 1899`) con el pedido escrito: productos,
+  cantidades, subtotales y total. Para cambiar el número, edita `WHATSAPP_NUMBER` al inicio de
+  `js/modules/cart-drawer.js` (indicativo + número, sin `+` ni espacios).
+- **Seguir comprando:** cierra el panel. También se cierra con la X, con Esc o con un clic fuera.
+- `js/modules/cart.js` guarda el estado y es el punto de conexión si más adelante se usa una
+  pasarela de pago.
 
 ## Imágenes
 

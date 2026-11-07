@@ -6,7 +6,7 @@
 (function (Melia) {
   'use strict';
 
-  const { $, $$, formatPrice, clamp, prefersReducedMotion } = Melia.utils;
+  const { $, $$, formatPrice, clamp, prefersReducedMotion, lockScroll, unlockScroll } = Melia.utils;
   const MIN_QTY = 1;
   const MAX_QTY = 10;
 
@@ -19,18 +19,6 @@
   let lastTrigger = null;
   let pointerDownOnBackdrop = false;
   let closeTimer = null;
-
-  /* ---------- Bloqueo de scroll sin "salto" por la barra de desplazamiento ---------- */
-  function lockScroll() {
-    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty('--scrollbar-w', scrollbar + 'px');
-    document.documentElement.classList.add('is-locked');
-  }
-
-  function unlockScroll() {
-    document.documentElement.classList.remove('is-locked');
-    document.documentElement.style.removeProperty('--scrollbar-w');
-  }
 
   /* ---------- Contenido ---------- */
   function fill(product) {
@@ -79,8 +67,10 @@
     addButton.disabled = false;
     $('.btn__label', addButton).textContent = 'Añadir al carrito';
 
-    lockScroll();
-    if (!dialog.open) dialog.showModal();
+    if (!dialog.open) {
+      lockScroll();
+      dialog.showModal();
+    }
     panel.scrollTop = 0;
   }
 

@@ -12,6 +12,7 @@
     'parallax',
     'effects',
     'cart',
+    'cartDrawer',
     'modal',
     'cursor',
     'newsletter',

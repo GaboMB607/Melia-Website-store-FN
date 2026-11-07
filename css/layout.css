@@ -114,6 +114,7 @@
 }
 
 /* Indicador del carrito */
+/* Botón del carrito (abre el panel "Mi Carrito") */
 .cart-indicator {
   position: relative;
   display: grid;
@@ -122,6 +123,15 @@
   height: 44px;
   border-radius: 50%;
   color: var(--brown);
+  transition: background-color 0.3s ease, scale 0.2s ease;
+}
+
+.cart-indicator:hover {
+  background: rgb(96 68 30 / 0.1);
+}
+
+.cart-indicator:active {
+  scale: 0.94;
 }
 
 .cart-indicator .icon {
@@ -406,7 +416,8 @@
   }
 
   .footer__nav {
+    grid-template-columns: repeat(3, auto);
     justify-self: end;
-    gap: 4rem;
+    gap: 3.5rem;
   }
 }

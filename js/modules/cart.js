@@ -1,17 +1,18 @@
 /* ==========================================================================
-   Melia · Carrito (estado local + contador del header)
-   Guarda { idProducto: cantidad } en localStorage. Cuando exista un checkout
-   real, este es el único módulo que hay que conectar.
+   Melia · Carrito (estado + contador del header)
+   Guarda { idProducto: cantidad } en localStorage y avisa de cada cambio con
+   el evento "melia:cart-change", que escucha el panel "Mi Carrito"
+   (cart-drawer.js) para volver a dibujarse.
    ========================================================================== */
 (function (Melia) {
   'use strict';
 
-  const { $, $$, storage } = Melia.utils;
+  const { $, $$, storage, clamp } = Melia.utils;
   const STORAGE_KEY = 'melia-cart';
   const MAX_PER_PRODUCT = 99;
 
   let items = {};
-  let indicator = null;
+  let button = null;
   let countEl = null;
   let labelEl = null;
 
@@ -19,19 +20,39 @@
     return Object.values(items).reduce((total, qty) => total + qty, 0);
   }
 
-  function render({ bump = false } = {}) {
-    if (!indicator) return;
-    const total = count();
-    countEl.textContent = String(total);
-    countEl.hidden = total === 0;
+  /** Líneas del carrito en el orden en que se añadieron: [{ product, qty, subtotal }] */
+  function getItems() {
+    return Object.entries(items)
+      .filter(([id]) => Melia.products[id])
+      .map(([id, qty]) => {
+        const product = Melia.products[id];
+        return { product, qty, subtotal: product.price * qty };
+      });
+  }
+
+  function total() {
+    return getItems().reduce((sum, line) => sum + line.subtotal, 0);
+  }
+
+  function renderBadge({ bump = false } = {}) {
+    if (!button) return;
+    const n = count();
+    countEl.textContent = String(n);
+    countEl.hidden = n === 0;
     labelEl.textContent =
-      total === 0 ? 'Carrito vacío' : `Carrito: ${total} ${total === 1 ? 'producto' : 'productos'}`;
+      n === 0 ? 'Abrir carrito (vacío)' : `Abrir carrito, ${n} ${n === 1 ? 'producto' : 'productos'}`;
 
     if (bump) {
-      indicator.classList.remove('is-bumping');
-      void indicator.offsetWidth; // reinicia la animación
-      indicator.classList.add('is-bumping');
+      button.classList.remove('is-bumping');
+      void button.offsetWidth; // reinicia la animación
+      button.classList.add('is-bumping');
     }
+  }
+
+  function commit({ bump = false } = {}) {
+    storage.set(STORAGE_KEY, items);
+    renderBadge({ bump });
+    document.dispatchEvent(new CustomEvent('melia:cart-change', { detail: { count: count(), total: total() } }));
   }
 
   function add(productId, quantity = 1) {
@@ -39,48 +60,64 @@
     if (!product || quantity < 1) return false;
 
     items[productId] = Math.min((items[productId] || 0) + quantity, MAX_PER_PRODUCT);
-    storage.set(STORAGE_KEY, items);
-    render({ bump: true });
+    commit({ bump: true });
 
     const unidades = quantity === 1 ? 'un frasco' : `${quantity} frascos`;
-    Melia.toast.show(`Añadiste ${unidades} de ${product.name} a tu carrito.`);
+    Melia.toast.show(`Añadiste ${unidades} de ${product.name} a tu carrito.`, {
+      action: { label: 'Ver carrito', onClick: () => Melia.cartDrawer && Melia.cartDrawer.open() },
+    });
     return true;
   }
 
+  /** Cambia la cantidad de una línea; 0 la elimina */
+  function setQty(productId, quantity) {
+    if (!(productId in items)) return;
+    const qty = clamp(Math.round(quantity) || 0, 0, MAX_PER_PRODUCT);
+    if (qty === 0) delete items[productId];
+    else items[productId] = qty;
+    commit();
+  }
+
+  function remove(productId) {
+    if (!(productId in items)) return;
+    delete items[productId];
+    commit();
+  }
+
   /** Feedback visual en el botón que añadió el producto */
-  function flashButton(button, text = 'Añadido') {
-    const label = $('.btn__label', button);
-    if (!label || button.classList.contains('is-success')) return;
+  function flashButton(btn, text = 'Añadido') {
+    const label = $('.btn__label', btn);
+    if (!label || btn.classList.contains('is-success')) return;
     const original = label.textContent;
-    button.classList.add('is-success');
+    btn.classList.add('is-success');
     label.textContent = text;
     window.setTimeout(() => {
-      button.classList.remove('is-success');
+      btn.classList.remove('is-success');
       label.textContent = original;
     }, 1600);
   }
 
   function init() {
-    indicator = $('[data-cart-indicator]');
-    countEl = indicator && $('[data-cart-count]', indicator);
-    labelEl = indicator && $('[data-cart-label]', indicator);
+    button = $('[data-cart-open]');
+    countEl = button && $('[data-cart-count]', button);
+    labelEl = button && $('[data-cart-label]', button);
 
     const saved = storage.get(STORAGE_KEY, {});
     items = saved && typeof saved === 'object' ? saved : {};
-    // descarta productos que ya no existan en el catálogo
+    // descarta productos que ya no existan en el catálogo o cantidades inválidas
     Object.keys(items).forEach((id) => {
-      if (!Melia.products[id] || !Number.isFinite(items[id])) delete items[id];
+      if (!Melia.products[id] || !Number.isFinite(items[id]) || items[id] < 1) delete items[id];
     });
-    render();
+    renderBadge();
 
     // "Añadir" rápido desde la tarjeta (no abre el modal)
-    $$('[data-add-to-cart]').forEach((button) => {
-      button.addEventListener('click', (event) => {
+    $$('[data-add-to-cart]').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
         event.stopPropagation();
-        if (add(button.dataset.addToCart, 1)) flashButton(button);
+        if (add(btn.dataset.addToCart, 1)) flashButton(btn);
       });
     });
   }
 
-  Melia.cart = { init, add, count, flashButton };
+  Melia.cart = { init, add, setQty, remove, count, total, getItems, flashButton, MAX_PER_PRODUCT };
 })(window.Melia = window.Melia || {});
