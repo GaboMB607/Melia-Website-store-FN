@@ -91,9 +91,10 @@ Para evitar abusos, revisa las opciones de seguridad de tu cuenta de EmailJS.
 - **Panel "Mi Carrito":** se abre con el icono del carrito del header
   (`js/modules/cart-drawer.js`). Muestra cada producto con nombre, precio unitario, cantidad
   editable, subtotal y botón para eliminar, más el total.
-- **Finalizar compra:** abre WhatsApp (`+57 310 585 1899`) con el pedido escrito: productos,
-  cantidades, subtotales y total. Para cambiar el número, edita `WHATSAPP_NUMBER` al inicio de
-  `js/modules/cart-drawer.js` (indicativo + número, sin `+` ni espacios).
+- **Finalizar compra:** abre WhatsApp con el pedido ya escrito (productos, cantidades,
+  subtotales y total) y el cliente elige a quién enviarlo. Para que llegue directo a un número,
+  escríbelo en `WHATSAPP_NUMBER` al inicio de `js/modules/cart-drawer.js` (indicativo +
+  número, sin `+` ni espacios). Ten en cuenta que ese número será visible en la web.
 - **Seguir comprando:** cierra el panel. También se cierra con la X, con Esc o con un clic fuera.
 - `js/modules/cart.js` guarda el estado y es el punto de conexión si más adelante se usa una
   pasarela de pago.

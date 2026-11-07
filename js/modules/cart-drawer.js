@@ -12,9 +12,12 @@
 
   const { $, formatPrice, prefersReducedMotion, lockScroll, unlockScroll } = Melia.utils;
 
-  /* Número de WhatsApp de Melia que recibe los pedidos: indicativo de país +
-     número, sin "+", espacios ni guiones (+57 310 585 1899) */
-  const WHATSAPP_NUMBER = '573105851899';
+  /* Número de WhatsApp que recibe los pedidos: indicativo de país + número, sin
+     "+", espacios ni guiones (por ejemplo '573001234567').
+     Vacío: WhatsApp se abre con el pedido ya escrito y el cliente elige a quién
+     enviarlo. Así no se publica ningún número mientras la web es de prueba.
+     Ojo: cualquier número que pongas aquí será visible para quien vea la página. */
+  const WHATSAPP_NUMBER = '';
 
   let dialog = null;
   let panel = null;
@@ -47,7 +50,9 @@
   }
 
   function whatsappUrl() {
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildOrderMessage())}`;
+    // sin número, wa.me/?text= abre WhatsApp y deja elegir el chat
+    const base = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}` : 'https://wa.me/';
+    return `${base}?text=${encodeURIComponent(buildOrderMessage())}`;
   }
 
   /* ---------- Dibujo de la lista ---------- */
