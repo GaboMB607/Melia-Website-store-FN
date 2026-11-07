@@ -54,17 +54,14 @@ también abriéndola como archivo local.
 
 ## Fuentes de marca
 
-`Adelia` (títulos) y `Ananda` (acentos) son fuentes caligráficas con licencia propia.
-Hoy se cargan con `local()`, así que **solo se ven en equipos que las tienen instaladas**;
-el resto de visitantes ve los respaldos *Cormorant Garamond* y *Allura* (Google Fonts).
-
-Para que todos vean las fuentes de marca:
-
-1. Confirma que la licencia permite uso web y comercial.
-   - La versión instalada de Ananda es *Personal Use*: no permite uso comercial y
-     reemplaza los números por una marca de agua.
-2. Convierte los archivos a `.woff2` y guárdalos en `assests/fuentes/`.
-3. Descomenta la línea `url(...)` de cada `@font-face` en `css/tokens.css`.
+- **Adelia** (títulos y logo, © Carroline) se sirve desde el proyecto:
+  `assests/fuentes/Adelia.woff2` (38 KB) y `Adelia.woff` como respaldo. Es un subconjunto
+  Latín + español del `.ttf` original. Se ve igual en cualquier dispositivo, tenga o no la
+  fuente instalada. Confirma que tu licencia de Adelia permite uso en web.
+- **Ananda** (acentos) no está incluida: la versión disponible es *Personal Use Only* y no
+  puede publicarse en una tienda. Mientras tanto los acentos usan **Allura** (Google Fonts).
+  Con una licencia comercial: guarda `Ananda.woff2` en `assests/fuentes/`, descomenta su
+  `@font-face` en `css/tokens.css` y añade `"Ananda"` al inicio de `--font-accent`.
 
 Reglas de uso en el diseño: las caligráficas nunca van en mayúsculas, sin `letter-spacing`
 y nunca para números.

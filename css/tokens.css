@@ -4,31 +4,49 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Fuentes de marca (licencia propia)
-   "Adelia" (títulos/logo) y "Ananda" (acentos) son caligráficas y no están
-   en Google Fonts.
-   - Si están instaladas en el equipo, local() las usa directamente.
-   - Para la web publicada: copia los archivos .woff2 a assests/fuentes/
-     y descomenta la línea url(...) de cada bloque (revisa antes que la
-     licencia permita uso web/comercial).
-   Mientras tanto se usan los fallbacks: Cormorant Garamond y Allura.
+   Fuentes de marca
+   Se sirven desde el propio proyecto (rutas relativas a este archivo), así se
+   ven igual en celulares, tablets y computadores, tengan o no la fuente
+   instalada. No se usa local(): todos los visitantes reciben el mismo archivo.
+   Si algún día ves los títulos en una serif clásica (Cormorant) en lugar de la
+   caligrafía, revisa que assests/fuentes/ se haya subido con la web.
+
+   - Adelia (títulos y logo, © Carroline): assests/fuentes/Adelia.woff2 + .woff
+     Subconjunto Latín + español (acentos, ñ, ¡ ¿) generado del .ttf original.
+     font-display: swap muestra el texto al instante con Cormorant Garamond y
+     lo cambia a Adelia en cuanto carga (el texto nunca queda invisible).
+
+   - Ananda (acentos): la versión disponible es "Personal Use Only" y no puede
+     publicarse en una tienda. Mientras no haya licencia comercial, los acentos
+     usan Allura (Google Fonts). Con la licencia: guarda Ananda.woff2 en
+     assests/fuentes/, descomenta el bloque de abajo y añade "Ananda" al inicio
+     de --font-accent.
+
    Reglas de uso: nunca en MAYÚSCULAS, nunca con letter-spacing (rompe las
-   uniones de la caligrafía) y nunca para números (Ananda Personal Use
-   sustituye los dígitos por una marca de agua).
+   uniones de la caligrafía) y nunca para números en Ananda.
    -------------------------------------------------------------------------- */
+/* Nombre propio ("Melia Adelia") a propósito: si se llamara "Adelia", en un PC
+   con la fuente instalada el navegador podría usar esa copia local y ocultar un
+   fallo de carga. Así todos los dispositivos se comportan igual. */
 @font-face {
-  font-family: "Adelia";
-  src: local("Adelia"), local("Adelia Regular");
-  /* src: local("Adelia"), url("../assests/fuentes/Adelia.woff2") format("woff2"); */
+  font-family: "Melia Adelia";
+  src:
+    url("../assests/fuentes/Adelia.woff2") format("woff2"),
+    url("../assests/fuentes/Adelia.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
+/*
 @font-face {
   font-family: "Ananda";
-  src: local("Ananda"), local("Ananda Regular");
-  /* src: local("Ananda"), url("../assests/fuentes/Ananda.woff2") format("woff2"); */
+  src: url("../assests/fuentes/Ananda.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
+*/
 
 :root {
   color-scheme: light;
@@ -54,8 +72,8 @@
   --on-dark-soft: #d7cbb3;   /* texto secundario sobre marrón (AA) */
 
   /* Tipografía */
-  --font-display: "Adelia", "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
-  --font-accent: "Ananda", "Allura", "Segoe Script", cursive;
+  --font-display: "Melia Adelia", "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --font-accent: "Allura", "Segoe Script", cursive; /* + "Ananda" al inicio cuando tenga licencia */
   --font-body: "Montserrat", "Lato", "Segoe UI", system-ui, sans-serif;
 
   /* "Melia" en Adelia mide ~4em de ancho: 23cqi (23% del ancho de .hero__content)
@@ -63,7 +81,8 @@
   --fs-hero: clamp(3.75rem, 23cqi, 10.5rem);
   --fs-h2: clamp(2.6rem, 1.8rem + 3vw, 4.4rem);
   --fs-h3: clamp(1.9rem, 1.6rem + 0.9vw, 2.35rem);
-  --fs-accent: clamp(1.35rem, 0.9rem + 2.6vw, 2.4rem);
+  /* Allura es más fina y estrecha que Ananda: algo más grande para leerse bien */
+  --fs-accent: clamp(1.6rem, 1.05rem + 3vw, 2.75rem);
   --fs-lead: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
 
   /* Forma: interactivos = píldora, contenedores = 24px, iconos = hexágono */
