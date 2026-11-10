@@ -17,7 +17,7 @@
      Vacío: WhatsApp se abre con el pedido ya escrito y el cliente elige a quién
      enviarlo. Así no se publica ningún número mientras la web es de prueba.
      Ojo: cualquier número que pongas aquí será visible para quien vea la página. */
-  const WHATSAPP_NUMBER = '';
+  const WHATSAPP_NUMBER = '573057137592'; // +57 305 713 7592
 
   let dialog = null;
   let panel = null;
